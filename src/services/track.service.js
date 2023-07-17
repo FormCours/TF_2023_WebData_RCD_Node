@@ -1,6 +1,10 @@
-const authService = {
+const TrackDTO = require("../dto/track.dto");
+const db = require("../models")
+
+const trackService = {
     getAll : async(/*offset, limit*/) => {
-        //TODO récup les tracks en db
+        const tracks = await db.Track.findAll();
+        return tracks.map(track => new TrackDTO(track));
     },
 
     getById : async(id) => {
@@ -29,4 +33,4 @@ const authService = {
 }
 
 
-module.exports = authService
+module.exports = trackService

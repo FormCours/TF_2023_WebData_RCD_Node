@@ -1,4 +1,5 @@
 const { Request, Response } = require('express');
+const trackService = require('../services/track.service');
 
 const trackController = {
     /**
@@ -7,8 +8,12 @@ const trackController = {
      * @param { Response } res
      */
     getAll : async(req, res) => {
-        res.sendStatus(501); //A mettre tant qu'on n'a pas implémenté la méthode
-        
+        // res.sendStatus(501); //A mettre tant qu'on n'a pas implémenté la méthode
+        //Si offset et limit pour pagination
+        //offset = req.pagination.offset
+        //limit = req.panigation.limit
+        const tracks = await trackService.getAll(/*offset, limit*/);
+        res.status(200).json(tracks);
     },
 
     /**
