@@ -25,6 +25,13 @@ db.sequelize.authenticate()
 
 // db.sequelize.sync({ force : true })
 
+// Middleware app-lvl
+app.use(express.json()); // -> permet d'utiliser le json pour envoyer des données
+
+// Utilisation du router
+const router = require('./routes')
+app.use('/api', router);
+
 // Ecoute du serveur
 app.listen(process.env.PORT, () => {
     console.log(`Server started on port:${process.env.PORT}`);
