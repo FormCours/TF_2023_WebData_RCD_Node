@@ -9,9 +9,9 @@ const trackController = {
      */
     getAll : async(req, res) => {
         // res.sendStatus(501); //A mettre tant qu'on n'a pas implémenté la méthode
-        //Si offset et limit pour pagination
-        //offset = req.pagination.offset
-        //limit = req.panigation.limit
+        // Si offset et limit pour pagination
+        // offset = req.pagination.offset
+        // limit = req.panigation.limit
         const tracks = await trackService.getAll(/*offset, limit*/);
         res.status(200).json(tracks);
     },
@@ -22,7 +22,15 @@ const trackController = {
      * @param { Response } res
      */
     getById : async (req, res) => {
-        res.sendStatus(501)
+        // res.sendStatus(501)
+        const id = req.params.id;
+        try {
+            const track = await trackService.getById(id);
+            res.status(200).json(track);
+        }
+        catch(err) {
+            res.status(404).json({ errorMsg : err.message })
+        }
     },
 
     /**
@@ -30,8 +38,17 @@ const trackController = {
      * @param { Request } req
      * @param { Response } res
      */
-    create : async (req, res) => {
-        res.sendStatus(501)
+    create : async (req, res) => {        
+        // res.sendStatus(501);
+        const trackToAdd = req.body;
+        try {
+            const track = await trackService.create(trackToAdd);           
+            res.status(201).json(track);
+        }
+        catch(err) {
+            res.status(400).json({ errorMsg : err.message })
+        }
+
     },
 
     /**
@@ -40,7 +57,16 @@ const trackController = {
      * @param { Response } res
      */
     update : async (req, res) => {
-        res.sendStatus(501)
+        const id = req.params.id;
+        const newTrack = req.body;
+        const updated = await trackService.update(id, newTrack);
+          
+        if(updated) {
+            res.sendStatus(204);
+        }
+        else {
+            res.status(404).json({ errorMsg : "Track Not Found" })
+        }
     },
 
     /**
@@ -49,7 +75,14 @@ const trackController = {
      * @param { Response } res
      */
     delete : async(req, res) => {
-        res.sendStatus(501)
+        const id = req.params.id;
+        const deleted = await trackService.delete(id);
+        if(deleted) {
+            res.sendStatus(204);
+        }
+        else {
+            res.status(404).json({ errorMsg : "Track Not Found" })
+        }
     },
 
     /**

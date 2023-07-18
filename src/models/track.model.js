@@ -1,5 +1,4 @@
 const { Sequelize, ModelStatic, DataTypes } = require('sequelize');
-const { sequelize } = require('.');
 
 /**
  * Modèle Track
