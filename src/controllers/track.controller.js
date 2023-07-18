@@ -90,8 +90,19 @@ const trackController = {
      * @param { Request } req
      * @param { Response } res
      */
-    like : () => {
-
+    like : async (req, res) => {
+        const trackId = req.params.id;
+        const userId = req.user.id;
+        try {
+            const liked = await trackService.like(userId, trackId);
+            res.sendStatus(201);
+            
+            
+        }
+        catch(err) {
+            res.status(404).json({ errorMsg : err.message })
+        }
+        
     },
 
     /**
@@ -99,8 +110,18 @@ const trackController = {
      * @param { Request } req
      * @param { Response } res
      */
-    dislike : () => {
-
+    dislike : async (req, res) => {
+        const trackId = req.params.id;
+        const userId = req.user.id;
+        try {
+            const liked = await trackService.dislike(userId, trackId);            
+            res.sendStatus(204);
+            
+        }
+        catch(err) {
+            res.status(404).json({ errorMsg : err.message })
+        }
+        
     }
 }
 

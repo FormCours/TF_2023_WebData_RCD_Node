@@ -7,13 +7,17 @@ trackRouter.route('/')
     .get(trackController.getAll)
     .post(trackController.create)
 
-
 trackRouter.route('/:id')
     .get(auth() ,trackController.getById) //Etre connecté (token)
-    //.get(auth(["ADMIN"]) ,trackController.getById) //Etre connecté et avoir le bon role (token + role)
+    // .get(auth(["ADMIN"]) ,trackController.getById) //Etre connecté et avoir le bon role (token + role)
     .put(trackController.update)
     .delete(trackController.delete)
     
-//TODO Faire les routes pour like/dislike une track
+trackRouter.route('/like/:id')
+    .post(auth(), trackController.like)
+
+trackRouter.route('/dislike/:id')
+    .delete(auth(), trackController.dislike)
+
 
 module.exports = trackRouter;

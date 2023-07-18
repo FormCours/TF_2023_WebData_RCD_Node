@@ -8,4 +8,6 @@ userRouter.route('/:id')
     .put( (req, res) => { res. sendStatus(501) })
     .delete( (req, res) => { res. sendStatus(501) })
 
+userRouter.route('/playlist')
+    .get()
 module.exports = userRouter;

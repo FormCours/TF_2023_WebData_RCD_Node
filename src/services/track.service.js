@@ -43,11 +43,47 @@ const trackService = {
     },
 
     like : async(userId, trackId) => {
-        //TODO
+        try {
+            const track = await db.Track.findByPk(trackId);
+            if(!track){
+                throw new Error("Track Not Found");
+            }
+            const user = await db.User.findByPk(userId);
+            if(!user) {
+                throw new Error("User Not Found");
+            }
+            const liked = await track.hasUser(user);
+            if(liked) {
+                throw new Error("Track already liked")
+            }
+            await track.addUser(user);
+        
+        }
+        catch(err) {
+            throw err;
+        }
     },
 
     dislike : async(userId, trackId) => {
-        //TODO
+        try {
+            const track = await db.Track.findByPk(trackId);
+            if(!track) {
+                throw new Error("Track Not Found");
+            }
+            const user = await db.User.findByPk(userId);
+            if(!user) {
+                throw new Error("User Not Found");
+            }
+            const liked = await track.hasUser(user);
+            if(!liked) {
+                throw new Error("Track not liked")
+            }
+            
+            await track.removeUser(user);
+        }
+        catch(err) {
+            throw err;
+        }
     }
 }
 
