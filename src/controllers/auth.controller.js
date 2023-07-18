@@ -1,4 +1,5 @@
 const authService = require("../services/auth.service");
+const jwtUtils = require("../utils/jwt.utils");
 
 const authController = {
     /**
@@ -10,7 +11,8 @@ const authController = {
         const userToAdd = req.body;
         try {
             const user = await authService.register(userToAdd);
-            res.status(201).json(user);
+            const token = await jwtUtils.encode(user);
+            res.status(201).json({ user, token });
         }
         catch(err) {
             res.status(400).json({ errorMsg : err.message });
@@ -26,7 +28,8 @@ const authController = {
         const credentials = req.body;
         try {
             const user = await authService.login(credentials.email, credentials.password);
-            res.status(200).json(user);
+            const token = await jwtUtils.encode(user);
+            res.status(200).json({ user, token });
         }
         catch(err) {
             res.status(400).json({ errorMsg : err.message });
