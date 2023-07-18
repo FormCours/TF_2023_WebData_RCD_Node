@@ -34,7 +34,7 @@ const jwtUtils = {
                 issuer : JWT_ISSUER,
                 audience : JWT_AUDIENCE
             }
-            jwt.decode(token, JWT_SECRET, options, (err, payload) => {
+            jwt.verify(token, JWT_SECRET, options, (err, payload) => {
                 if(err) {
                     reject("Token decode error");
                 }
