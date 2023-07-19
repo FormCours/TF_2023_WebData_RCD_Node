@@ -4,8 +4,10 @@ require('dotenv').config();
 
 // Express
 const express = require('express');
+
 // Middleware gestion erreurs async
 require('express-async-errors');
+
 // Les cors
 const cors = require('cors');
 
@@ -34,6 +36,10 @@ app.use(pagination());
 // Utilisation du router
 const router = require('./routes');
 app.use('/api', router);
+
+// Gestion des erreurs
+const errorHandler = require('./middlewares/errorHandler.middleware');
+app.use(errorHandler());
 
 // Ecoute du serveur
 app.listen(process.env.PORT, () => {

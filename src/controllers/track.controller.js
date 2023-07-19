@@ -1,5 +1,7 @@
 const { Request, Response } = require('express');
 const trackService = require('../services/track.service');
+const { InvalidDataError } = require('../errors/invalidData.error');
+const { NotFoundError } = require('../errors/notFound.error');
 
 const trackController = {
     /**
@@ -31,7 +33,8 @@ const trackController = {
             res.status(200).json(track);
         }
         catch(err) {
-            res.status(404).json({ errorMsg : err.message })
+            throw new NotFoundError(err.message);
+            // res.status(404).json({ errorMsg : err.message })
         }
     },
 
@@ -48,7 +51,8 @@ const trackController = {
             res.status(201).json(track);
         }
         catch(err) {
-            res.status(400).json({ errorMsg : err.message })
+            throw new InvalidDataError(err.message);
+            //res.status(422).json({ errorMsg : err.message })
         }
 
     },
@@ -67,7 +71,8 @@ const trackController = {
             res.sendStatus(204);
         }
         else {
-            res.status(404).json({ errorMsg : "Track Not Found" })
+            throw new NotFoundError("Track Not Found" )
+            //res.status(404).json({ errorMsg : "Track Not Found" })
         }
     },
 
@@ -83,7 +88,8 @@ const trackController = {
             res.sendStatus(204);
         }
         else {
-            res.status(404).json({ errorMsg : "Track Not Found" })
+            throw new NotFoundError("Track Not Found");
+            // res.status(404).json({ errorMsg : "Track Not Found" })
         }
     },
 
@@ -102,7 +108,8 @@ const trackController = {
             
         }
         catch(err) {
-            res.status(404).json({ errorMsg : err.message })
+            throw new NotFoundError(err.message)
+            // res.status(404).json({ errorMsg : err.message })
         }
         
     },
@@ -121,9 +128,21 @@ const trackController = {
             
         }
         catch(err) {
-            res.status(404).json({ errorMsg : err.message })
+            throw new NotFoundError(err.message)
+            // res.status(404).json({ errorMsg : err.message })
         }
         
+    },
+
+    /**
+     * Error → Exemple de code qui provoque une erreur (╯°□°）╯︵ ┻━┻
+     * @param { Request } req
+     * @param { Response } res
+     */
+    error: async (req, res) => {
+
+        // Déclanchement explicite d'une erreur, pour la demo
+        throw new Error('Boum ! C\'est tout cassé 💣')
     }
 }
 

@@ -1,3 +1,4 @@
+const { BadRequestError } = require("../errors/badRequest.error");
 const authService = require("../services/auth.service");
 const jwtUtils = require("../utils/jwt.utils");
 
@@ -15,7 +16,8 @@ const authController = {
             res.status(201).json({ user, token });
         }
         catch(err) {
-            res.status(400).json({ errorMsg : err.message });
+            throw new BadRequestError(err.message);
+            // res.status(400).json({ errorMsg : err.message });
         }
     },
 
@@ -32,7 +34,8 @@ const authController = {
             res.status(200).json({ user, token });
         }
         catch(err) {
-            res.status(400).json({ errorMsg : err.message });
+            throw new BadRequestError(err.message);
+            // res.status(400).json({ errorMsg : err.message });
         }
     }
 }
