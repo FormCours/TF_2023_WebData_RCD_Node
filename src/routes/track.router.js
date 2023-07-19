@@ -11,8 +11,9 @@ trackRouter.route('/error')
     .get(trackController.error);
 
 trackRouter.route('/:id')
-    .get(trackController.getById) //Etre connecté (token)
-    // .get(auth(["ADMIN"]) ,trackController.getById) //Etre connecté et avoir le bon role (token + role)
+    .get(trackController.getById)                       //Non connecté 
+    // .get(auth(), trackController.getById)            //Etre connecté (token)
+    // .get(auth(["ADMIN"]) ,trackController.getById)   //Etre connecté et avoir le bon role (token + role)
     .put(trackController.update)
     .delete(trackController.delete)
     
