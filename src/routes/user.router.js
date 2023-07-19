@@ -9,5 +9,6 @@ userRouter.route('/:id')
     .delete( (req, res) => { res. sendStatus(501) })
 
 userRouter.route('/playlist')
-    .get()
+    .get((req, res) => { res. sendStatus(501) })
+
 module.exports = userRouter;
