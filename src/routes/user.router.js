@@ -1,7 +1,9 @@
+const pagination = require('../middlewares/pagination.middleware')
+
 const userRouter = require('express').Router()
 
 userRouter.route('/')
-    .get( (req, res) => { res.sendStatus(501) })
+    .get(pagination({maxLimit: 10, defaultLimit: 5}), (req, res) => { res.sendStatus(501) })
 
 userRouter.route('/:id')
     .get( (req, res) => { res. sendStatus(501) })

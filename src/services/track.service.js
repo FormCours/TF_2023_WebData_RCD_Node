@@ -2,8 +2,13 @@ const TrackDTO = require("../dto/track.dto");
 const db = require("../models")
 
 const trackService = {
-    getAll : async(/*offset, limit*/) => {
-        const tracks = await db.Track.findAll();
+    getAll : async(offset, limit) => {
+
+        const tracks = await db.Track.findAll({
+            offset,
+            limit
+        });
+
         return tracks.map(track => new TrackDTO(track));
     },
 

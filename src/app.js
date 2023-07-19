@@ -28,8 +28,11 @@ db.sequelize.authenticate()
 // Middleware app-lvl
 app.use(express.json()); // -> permet d'utiliser le json pour envoyer des données
 
+const pagination = require('./middlewares/pagination.middleware');
+app.use(pagination());
+
 // Utilisation du router
-const router = require('./routes')
+const router = require('./routes');
 app.use('/api', router);
 
 // Ecoute du serveur
